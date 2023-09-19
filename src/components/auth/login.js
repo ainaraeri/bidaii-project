@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
-//PROBANDOOOOOO
-
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -36,20 +34,23 @@ export default class Login extends Component {
         },
         { withCredentials: true }
       )
-      .then((response) => {
+      .then(response => {
         if (response.data.status === "created") {
-          console.log("You can come in...");
+          this.props.handleSuccessfulAuth();
         } else {
           this.setState({
             errorText: "Wrong email or password"
           });
+          this.props.handleUnsuccessfulAuth();
         }
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({
           errorText: "An error occurred"
         });
+        this.props.handleUnsuccessfulAuth();
       });
+
     event.preventDefault();
   }
 
