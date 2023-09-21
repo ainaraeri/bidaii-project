@@ -1,8 +1,9 @@
 @mixin base-btn {
     cursor: pointer;
-    height: 42px;
-    font-size: 1em;
-    font-weight: 500;
+    height: 32px;
+    width: 42px;
+    font-size: 1.2em;
+    font-weight: 600;
     border: 1px solid transparent;
     transition: all 0.5s ease-in-out;
     background-color: $teal;
@@ -37,4 +38,9 @@
             border-bottom: 1px solid $dark-teal;
         }
     }
+}
+
+@mixin base-grid() {
+    display: grid;
+    grid-gap: 21px;
 }
