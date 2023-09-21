@@ -23,16 +23,40 @@ export default class PortfolioForm extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.componentConfig = this.componentConfig.bind(this);
         this.componentConfig = this.componentConfig.bind(this);
         this.djsConfig = this.djsConfig.bind(this);
         this.handleThumbDrop = this.handleThumbDrop.bind(this);
+        this.handleBannerDrop = this.handleBannerDrop.bind(this);
+        this.handleLogoDrop = this.handleLogoDrop.bind(this);
+
+        this.thumbRef = React.createRef();
+        this.bannerRef = React.createRef();
+        this.logoRef = React.createRef();
+
+
     }
 
-    handleThumbDrop(){
+    handleThumbDrop() {
         return {
-          addedfile: (file) => this.setState({ thumb_image: file }),
+          addedfile: file => this.setState({ thumb_image: file })
         };
-    }
+      }
+      
+      handleBannerDrop() {
+        return {
+          addedfile: file => this.setState({ banner_image: file })
+        };
+      }
+      
+      handleLogoDrop() {
+        return {
+          addedfile: file => this.setState({ logo: file })
+        };
+      }
+
+
 
     componentConfig(){
         return {
@@ -63,6 +87,17 @@ export default class PortfolioForm extends Component {
             );
         }
 
+        if (this.state.banner_image) {
+            formData.append(
+              "portfolio_item[banner_image]",
+              this.state.banner_image
+            );
+        }
+
+        if (this.state.logo) {
+            formData.append("portfolio_item[logo]", this.state.logo);
+        }
+
         return formData;
     }
 
@@ -79,23 +114,34 @@ export default class PortfolioForm extends Component {
             this.buildForm(),
             { withCredentials: true }
           )
-          .then(response => {
-            this.props.handleSuccessfulFormSubmission(response.data.portfolio_item)
-            console.log("response", response);
-          })
-          .catch(error => {
-            console.log("portfolio form handleSubmit error", error);
-          });
-    
-        event.preventDefault();
-      }
+           .then(response => {
+        this.props.handleSuccessfulFormSubmission(response.data.portfolio_item);
+
+        this.setState({
+          name: "",
+          description: "",
+          category: "eCommerce",
+          position: "",
+          url: "",
+          thumb_image: "",
+          banner_image: "",
+          logo: ""
+        });
+
+        [this.thumbRef, this.bannerRef, this.logoRef].forEach(ref => {
+          ref.current.dropzone.removeAllFiles();
+        });
+      })
+      .catch(error => {
+        console.log("portfolio form handleSubmit error", error);
+      });
+
+    event.preventDefault();
+  }
 
   render() {
     return (
-      <div>
-        <h1>Portfolio Form</h1>
-
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className='portfolio-form-wrapper'>
           <div>
             <input
               type="text"
@@ -146,9 +192,24 @@ export default class PortfolioForm extends Component {
 
           <div className="image-uploaders">
             <DropzoneComponent
+              ref={this.thumbRef}
               config={this.componentConfig()}
               djsConfig={this.djsConfig()}
               eventHandlers={this.handleThumbDrop()}
+            ></DropzoneComponent>
+
+            <DropzoneComponent
+              ref={this.bannerRef}
+              config={this.componentConfig()}
+              djsConfig={this.djsConfig()}
+              eventHandlers={this.handleBannerDrop()}
+            ></DropzoneComponent>
+
+            <DropzoneComponent
+              ref={this.logoRef}
+              config={this.componentConfig()}
+              djsConfig={this.djsConfig()}
+              eventHandlers={this.handleLogoDrop()}
             ></DropzoneComponent>
           </div>
 
@@ -156,7 +217,6 @@ export default class PortfolioForm extends Component {
             <button type="submit">Save</button>
           </div>
         </form>
-      </div>
     );
   }
 }
