@@ -7,36 +7,66 @@ import "../../../node_modules/dropzone/dist/min/dropzone.min.css";
 
 
 export default class PortfolioForm extends Component {
-    constructor(props){
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-          name: "",
-          description: "",
-          category: "eCommerce",
-          position: "",
-          url: "",
-          thumb_image: "",
-          banner_image: "",
-          logo: "",
-        };
+    this.state = {
+      name: "",
+      description: "",
+      category: "eCommerce",
+      position: "",
+      url: "",
+      thumb_image: "",
+      banner_image: "",
+      logo: "",
+      editMode: false, 
+      apiUrl: "https://ainaraerice.devcamp.space/portfolio/portfolio_items",
+      apiAction: "post"
+    };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.componentConfig = this.componentConfig.bind(this);
-        this.componentConfig = this.componentConfig.bind(this);
-        this.djsConfig = this.djsConfig.bind(this);
-        this.handleThumbDrop = this.handleThumbDrop.bind(this);
-        this.handleBannerDrop = this.handleBannerDrop.bind(this);
-        this.handleLogoDrop = this.handleLogoDrop.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.componentConfig = this.componentConfig.bind(this);
+      this.djsConfig = this.djsConfig.bind(this);
+      this.handleThumbDrop = this.handleThumbDrop.bind(this);
+      this.handleBannerDrop = this.handleBannerDrop.bind(this);
+      this.handleLogoDrop = this.handleLogoDrop.bind(this);
 
-        this.thumbRef = React.createRef();
-        this.bannerRef = React.createRef();
-        this.logoRef = React.createRef();
+      this.thumbRef = React.createRef();
+      this.bannerRef = React.createRef();
+      this.logoRef = React.createRef();
+  }
 
+    componentDidUpdate() {
+      if (Object.keys(this.props.portfolioToEdit).length > 0) {
+        const {
+          id,
+          name,
+          description,
+          category,
+          position,
+          url,
+          thumb_image_url,
+          banner_image_url,
+          logo_url
+        } = this.props.portfolioToEdit;
 
+        this.props.clearPortfolioToEdit();
+
+        this.setState({
+          id: id,
+          name: name || "",
+          description: description || "",
+          category: category || "eCommerce",
+          position: position || "",
+          url: url || "",
+          editMode: true,
+          apiUrl: `https://ainaraerice.devcamp.space/portfolio/portfolio_items/${id} `,
+          apiAction: "patch",
+        });
+      }
     }
+
 
     handleThumbDrop() {
         return {
@@ -108,33 +138,35 @@ export default class PortfolioForm extends Component {
     }
 
     handleSubmit(event){
-        axios
-          .post(
-            "https://ainaraerice.devcamp.space/portfolio/portfolio_items",
-            this.buildForm(),
-            { withCredentials: true }
-          )
-           .then(response => {
-        this.props.handleSuccessfulFormSubmission(response.data.portfolio_item);
+        axios({
+          method: this.state.apiAction,
+          url: this.state.apiUrl,
+          data: this.buildForm(),
+          withCredentials: true,
+        })
+          .then((response) => {
+            this.props.handleSuccessfulFormSubmission(
+              response.data.portfolio_item
+            );
 
-        this.setState({
-          name: "",
-          description: "",
-          category: "eCommerce",
-          position: "",
-          url: "",
-          thumb_image: "",
-          banner_image: "",
-          logo: ""
-        });
+            this.setState({
+              name: "",
+              description: "",
+              category: "eCommerce",
+              position: "",
+              url: "",
+              thumb_image: "",
+              banner_image: "",
+              logo: "",
+            });
 
-        [this.thumbRef, this.bannerRef, this.logoRef].forEach(ref => {
-          ref.current.dropzone.removeAllFiles();
-        });
-      })
-      .catch(error => {
-        console.log("portfolio form handleSubmit error", error);
-      });
+            [this.thumbRef, this.bannerRef, this.logoRef].forEach((ref) => {
+              ref.current.dropzone.removeAllFiles();
+            });
+          })
+          .catch((error) => {
+            console.log("portfolio form handleSubmit error", error);
+          });
 
     event.preventDefault();
   }
