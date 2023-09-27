@@ -19,154 +19,168 @@ export default class PortfolioForm extends Component {
       thumb_image: "",
       banner_image: "",
       logo: "",
-      editMode: false, 
+      editMode: false,
       apiUrl: "https://ainaraerice.devcamp.space/portfolio/portfolio_items",
-      apiAction: "post"
+      apiAction: "post",
     };
 
-      this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.componentConfig = this.componentConfig.bind(this);
-      this.djsConfig = this.djsConfig.bind(this);
-      this.handleThumbDrop = this.handleThumbDrop.bind(this);
-      this.handleBannerDrop = this.handleBannerDrop.bind(this);
-      this.handleLogoDrop = this.handleLogoDrop.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.componentConfig = this.componentConfig.bind(this);
+    this.djsConfig = this.djsConfig.bind(this);
+    this.handleThumbDrop = this.handleThumbDrop.bind(this);
+    this.handleBannerDrop = this.handleBannerDrop.bind(this);
+    this.handleLogoDrop = this.handleLogoDrop.bind(this);
+    this.deleteImage = this.deleteImage.bind(this);
 
-      this.thumbRef = React.createRef();
-      this.bannerRef = React.createRef();
-      this.logoRef = React.createRef();
+    this.thumbRef = React.createRef();
+    this.bannerRef = React.createRef();
+    this.logoRef = React.createRef();
   }
 
-    componentDidUpdate() {
-      if (Object.keys(this.props.portfolioToEdit).length > 0) {
-        const {
-          id,
-          name,
-          description,
-          category,
-          position,
-          url,
-          thumb_image_url,
-          banner_image_url,
-          logo_url
-        } = this.props.portfolioToEdit;
-
-        this.props.clearPortfolioToEdit();
-
-        this.setState({
-          id: id,
-          name: name || "",
-          description: description || "",
-          category: category || "eCommerce",
-          position: position || "",
-          url: url || "",
-          editMode: true,
-          apiUrl: `https://ainaraerice.devcamp.space/portfolio/portfolio_items/${id} `,
-          apiAction: "patch",
-        });
-      }
-    }
-
-
-    handleThumbDrop() {
-        return {
-          addedfile: file => this.setState({ thumb_image: file })
-        };
-      }
-      
-      handleBannerDrop() {
-        return {
-          addedfile: file => this.setState({ banner_image: file })
-        };
-      }
-      
-      handleLogoDrop() {
-        return {
-          addedfile: file => this.setState({ logo: file })
-        };
-      }
-
-
-
-    componentConfig(){
-        return {
-          iconFiletypes: [".jpg", ".png"],
-          showFiletypeIcon: true,
-          postUrl: "https://httpbin.org/post",
-        };
-    }
-
-    djsConfig(){
-        return {
-          addRemoveLinks: true,
-          maxFiles: 1,
-        };
-    }
-    buildForm(){
-        let formData = new FormData();
-
-        formData.append("portfolio_item[name]", this.state.name);
-        formData.append("portfolio_item[url]", this.state.url);
-        formData.append("portfolio_item[position]", this.state.position);
-        formData.append("portfolio_item[category]", this.state.category);
-        formData.append("portfolio_item[description]", this.state.description);
-        if (this.state.thumb_image) {
-            formData.append(
-              "portfolio_item[thumb_image]",
-              this.state.thumb_image
-            );
-        }
-
-        if (this.state.banner_image) {
-            formData.append(
-              "portfolio_item[banner_image]",
-              this.state.banner_image
-            );
-        }
-
-        if (this.state.logo) {
-            formData.append("portfolio_item[logo]", this.state.logo);
-        }
-
-        return formData;
-    }
-
-    handleChange(event) {
+  deleteImage(imageType) {
+    axios.delete(
+      `https://api.devcamp.space/portfolio/delete-portfolio-image/${this.state.id}?image_type=${imageType}`,
+      { withCredentials: true }
+    ). then(response => {
       this.setState({
-        [event.target.name]: event.target.value,
+        [`${imageType}_url`]: "",
+      });
+      
+    }).catch(error => {
+      console.log("deleteImage error", error);
+    })
+  }
+
+  componentDidUpdate() {
+    if (Object.keys(this.props.portfolioToEdit).length > 0) {
+      const {
+        id,
+        name,
+        description,
+        category,
+        position,
+        url,
+        thumb_image_url,
+        banner_image_url,
+        logo_url,
+      } = this.props.portfolioToEdit;
+
+      this.props.clearPortfolioToEdit();
+
+      this.setState({
+        id: id,
+        name: name || "",
+        description: description || "",
+        category: category || "eCommerce",
+        position: position || "",
+        url: url || "",
+        editMode: true,
+        apiUrl: `https://ainaraerice.devcamp.space/portfolio/portfolio_items/${id} `,
+        apiAction: "patch",
+        thumb_image_url: thumb_image_url || "",
+        banner_image_url: banner_image_url || "",
+        logo_url: logo_url || "",
       });
     }
+  }
 
-    handleSubmit(event){
-        axios({
-          method: this.state.apiAction,
-          url: this.state.apiUrl,
-          data: this.buildForm(),
-          withCredentials: true,
-        })
-          .then((response) => {
-            this.props.handleSuccessfulFormSubmission(
-              response.data.portfolio_item
-            );
+  handleThumbDrop() {
+    return {
+      addedfile: (file) => this.setState({ thumb_image: file }),
+    };
+  }
 
-            this.setState({
-              name: "",
-              description: "",
-              category: "eCommerce",
-              position: "",
-              url: "",
-              thumb_image: "",
-              banner_image: "",
-              logo: "",
-            });
+  handleBannerDrop() {
+    return {
+      addedfile: (file) => this.setState({ banner_image: file }),
+    };
+  }
 
-            [this.thumbRef, this.bannerRef, this.logoRef].forEach((ref) => {
-              ref.current.dropzone.removeAllFiles();
-            });
-          })
-          .catch((error) => {
-            console.log("portfolio form handleSubmit error", error);
-          });
+  handleLogoDrop() {
+    return {
+      addedfile: (file) => this.setState({ logo: file }),
+    };
+  }
+
+  componentConfig() {
+    return {
+      iconFiletypes: [".jpg", ".png"],
+      showFiletypeIcon: true,
+      postUrl: "https://httpbin.org/post",
+    };
+  }
+
+  djsConfig() {
+    return {
+      addRemoveLinks: true,
+      maxFiles: 1,
+    };
+  }
+  buildForm() {
+    let formData = new FormData();
+
+    formData.append("portfolio_item[name]", this.state.name);
+    formData.append("portfolio_item[url]", this.state.url);
+    formData.append("portfolio_item[position]", this.state.position);
+    formData.append("portfolio_item[category]", this.state.category);
+    formData.append("portfolio_item[description]", this.state.description);
+    if (this.state.thumb_image) {
+      formData.append("portfolio_item[thumb_image]", this.state.thumb_image);
+    }
+
+    if (this.state.banner_image) {
+      formData.append("portfolio_item[banner_image]", this.state.banner_image);
+    }
+
+    if (this.state.logo) {
+      formData.append("portfolio_item[logo]", this.state.logo);
+    }
+
+    return formData;
+  }
+
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  handleSubmit(event) {
+    axios({
+      method: this.state.apiAction,
+      url: this.state.apiUrl,
+      data: this.buildForm(),
+      withCredentials: true,
+    })
+      .then((response) => {
+        if (this.state.editMode) {
+          this.props.handleEditFormSubmission();
+        } else {
+          this.props.handleNewFormSubmission(response.data.portfolio_item);
+        }
+
+        this.setState({
+          name: "",
+          description: "",
+          category: "eCommerce",
+          position: "",
+          url: "",
+          thumb_image: "",
+          banner_image: "",
+          logo: "",
+          editMode: false,
+          apiUrl: `https://ainaraerice.devcamp.space/portfolio/portfolio_items/${id} `,
+          apiAction: "post",
+        });
+
+        [this.thumbRef, this.bannerRef, this.logoRef].forEach((ref) => {
+          ref.current.dropzone.removeAllFiles();
+        });
+      })
+      .catch((error) => {
+        console.log("portfolio form handleSubmit error", error);
+      });
 
     event.preventDefault();
   }
@@ -224,32 +238,64 @@ export default class PortfolioForm extends Component {
         </div>
 
         <div className="image-uploaders">
-          <DropzoneComponent
-            ref={this.thumbRef}
-            config={this.componentConfig()}
-            djsConfig={this.djsConfig()}
-            eventHandlers={this.handleThumbDrop()}
-          >
-            <div className="dz-message">ThumbNail</div>
-          </DropzoneComponent>
+          {this.state.thumb_image_url && this.state.editMode ? (
+            <div className="portfolio-manager-image-wrapper">
+              <img src={this.state.thumb_image_url} />
 
-          <DropzoneComponent
-            ref={this.bannerRef}
-            config={this.componentConfig()}
-            djsConfig={this.djsConfig()}
-            eventHandlers={this.handleBannerDrop()}
-          >
-            <div className="dz-message">Banner</div>
-          </DropzoneComponent>
+              <div className="image-removal-link">
+                <a onClick={() => this.deleteImage("thumb_image")}>
+                  Remove file
+                </a>
+              </div>
+            </div>
+          ) : (
+            <DropzoneComponent
+              ref={this.thumbRef}
+              config={this.componentConfig()}
+              djsConfig={this.djsConfig()}
+              eventHandlers={this.handleThumbDrop()}
+            >
+              <div className="dz-message">ThumbNail</div>
+            </DropzoneComponent>
+          )}
 
-          <DropzoneComponent
-            ref={this.logoRef}
-            config={this.componentConfig()}
-            djsConfig={this.djsConfig()}
-            eventHandlers={this.handleLogoDrop()}
-          >
-            <div className="dz-message">Logo</div>
-          </DropzoneComponent>
+          {this.state.banner_image_url && this.state.editMode ? (
+            <div className="portfolio-manager-image-wrapper">
+              <img src={this.state.banner_image_url} />
+              <div className="image-removal-link">
+                <a onClick={() => this.deleteImage("banner_image")}>
+                  Remove file
+                </a>
+              </div>
+            </div>
+          ) : (
+            <DropzoneComponent
+              ref={this.bannerRef}
+              config={this.componentConfig()}
+              djsConfig={this.djsConfig()}
+              eventHandlers={this.handleBannerDrop()}
+            >
+              <div className="dz-message">Banner</div>
+            </DropzoneComponent>
+          )}
+
+          {this.state.logo_url && this.state.editMode ? (
+            <div className="portfolio-manager-image-wrapper">
+              <img src={this.state.logo_url} />
+              <div className="image-removal-link">
+                <a onClick={() => this.deleteImage("logo")}>Remove file</a>
+              </div>
+            </div>
+          ) : (
+            <DropzoneComponent
+              ref={this.logoRef}
+              config={this.componentConfig()}
+              djsConfig={this.djsConfig()}
+              eventHandlers={this.handleLogoDrop()}
+            >
+              <div className="dz-message">Logo</div>
+            </DropzoneComponent>
+          )}
         </div>
 
         <div>
