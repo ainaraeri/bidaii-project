@@ -38,8 +38,8 @@ const NavigationComponent = (props) => {
     <div className={`nav-wrapper ${scrolled ? 'scrolled' : ''}`}>
       <div className="left-side">
         <div className="nav-link-wrapper">
-          <NavLink exact to="/" className="nav-logo">
-            <img src="../../assets/images/logobidaii.png" />
+          <NavLink exact to="/" className="nav-logo" >
+            <img  src="../../assets/images/logobidaii.png"/>
           </NavLink>
         </div>
 
