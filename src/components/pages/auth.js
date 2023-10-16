@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Login from "../auth/login";
-import marsellaImg from "../../../static/assets/images/auth/marsella.jpg";
+import Register from "../auth/register"; // Check the correct import path
+import balloonsImg from "../../../static/assets/images/auth/balloons.jpg";
 
 export default class Auth extends Component {
   constructor(props) {
@@ -25,18 +26,24 @@ export default class Auth extends Component {
         <div
           className="left-column"
           style={{
-            backgroundImage: `url(${marsellaImg})`,
-            backgroundPosition: 'center', // Esto centrará la imagen
-            backgroundSize: 'cover', // Esto asegura que la imagen cubra todo el contenedor
-            backgroundRepeat: 'no-repeat' // Esto asegura que la imagen no se repita
+            backgroundImage: `url(${balloonsImg})`,
+            backgroundPosition: "center", // Esto centrará la imagen
+            backgroundSize: "cover", // Esto asegura que la imagen cubra todo el contenedor
+            backgroundRepeat: "no-repeat", // Esto asegura que la imagen no se repita
           }}
         />
 
-        <div className="right-column">
-          <Login
-            handleSuccessfulAuth={this.handleSuccessfulAuth}
-            handleUnsuccessfulAuth={this.handleUnsuccessfulAuth}
-          />
+<div className="right-column">
+          <div className="login-container">
+            <Login
+              handleSuccessfulAuth={this.handleSuccessfulAuth}
+              handleUnsuccessfulAuth={this.handleUnsuccessfulAuth}
+            />
+          </div>
+
+          <div className="register-container">
+            <Register />
+          </div>
         </div>
       </div>
     );

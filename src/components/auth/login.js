@@ -57,7 +57,7 @@ export default class Login extends Component {
   render() {
     return (
       <div>
-        <h1>LOGIN TO ACCESS YOUR DASHBOARD</h1>
+        <h1>INICIA SESIÓN</h1>
 
         <div>{this.state.errorText}</div>
 

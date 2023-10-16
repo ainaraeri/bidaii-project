@@ -10,8 +10,7 @@ export default function() {
             type="video/mp4"
           />
         </video>
-        <h1>Planifica Tu Viaje Perfecto: Un Click, Mil Aventuras. 
-          ¡Descubre, Disfruta, Explora! </h1>
+        <h1>Planifica Tu Viaje Perfecto: Un Click, Mil Aventuras</h1>
       </div>
     </div>
   );
