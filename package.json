@@ -1,7 +1,10 @@
 {
-  "name": "ainara-erice-react-portfolio",
+  "name": "bidaii-project",
   "version": "1.0.0",
-  "description": "Personal portfolio app built in React",
+  "description": "Travel app",
+  "engines": {
+    "node": "14.21.3"
+  },
   "scripts": {
     "preinstall": "npm set audit false",
     "start": "webpack-dev-server --config webpack/dev.config.js --watch",
