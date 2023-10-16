@@ -1,0 +1,50 @@
+
+  video::-webkit-media-controls {
+    display: none !important;
+  }
+  
+  /* Asegúrate de agregar estilos para controles personalizados */
+  video {
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: -1; /* Coloca el video detrás del texto */
+  }
+  
+  /* Agrega estilos específicos al contenedor del vídeo */
+  .video-container {
+    position: relative;
+    overflow: hidden;
+
+    h1 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: $palegreen; 
+      font-size: 3em; 
+      text-align: center;
+      font-weight: 600;
+    }
+  }
+  
+  .introduction {
+    display: grid;
+    
+    h1 {
+      text-align: left;
+      padding-left: 40px;
+      font-size: 30px;
+      padding-bottom: 10px;
+      padding-top: 30px;
+
+    }
+    p {
+      text-align: left;
+      padding-left: 40px;
+      height: auto;
+      width: 700px;
+      font-size: 20px;
+      padding-bottom: 30px;
+    }
+  }

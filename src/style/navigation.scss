@@ -5,11 +5,13 @@
   position: fixed;
   width: 100%;
   top: 0;
-  background-color: transparent; /* Agrega un color de fondo para que sea visible */
   box-sizing: border-box;
+  background-color: $lightgrey; /* Cambia al color deseado */
+  transition: background-color 0.3s ease-in-out;
+
 
   &.scrolled {
-    background-color: aliceblue; /* Cambia al color deseado */
+    background-color: $lightgrey; /* Cambia al color deseado */
   }
   
   
@@ -18,11 +20,12 @@
     a {
       margin: 15px;
       cursor: pointer;
-      color: $teal;
+      color: $lightgrey;
       transition: 0.5s ease-in-out;
+      font-size: 11px;
 
       &:hover {
-        color: $dark-teal;
+        color: $darkpaleblue;
       }
     }
   }
@@ -32,11 +35,13 @@
     a {
       margin: 15px;
       cursor: pointer;
-      color: $teal;
+      color: $lightgrey;
       transition: 0.5s ease-in-out;
+      font-size: 12px;
+
 
       &:hover {
-        color: $dark-teal;
+        color: $darkpaleblue;
       }
     }
   }
@@ -54,11 +59,16 @@
 
     .nav-logo {
       display: flex;
-      width: 15px;
       height: 100%; /* Ajusta la altura a la del contenedor */
       padding: 0px;
       margin-top: 0px;
-      align-self: stretch; 
+      align-self: stretch;
+
+      img {
+        width: 30px; /* Cambia el tamaño de la imagen según sea necesario */
+        height: auto; /* Permite que la altura se ajuste automáticamente */
+      }
+
     }
 
     .user-icon {
@@ -71,7 +81,7 @@
       }
     }
     a {
-        color: $grey;
+        color: $darkgreen;
         text-decoration: none;
         justify-content: center;
         align-items: cen;
@@ -86,7 +96,7 @@
 
     .nav-link-active {
         border-bottom: 1px solid transparent;
-        color: $grey;
+        color: $darkgreen;
         }
   }
 }

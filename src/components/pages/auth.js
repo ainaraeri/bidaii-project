@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Login from "../auth/login";
-import loginImg from "../../../static/assets/images/auth/login.jpg";
+import marsellaImg from "../../../static/assets/images/auth/marsella.jpg";
 
 export default class Auth extends Component {
   constructor(props) {
@@ -25,7 +25,10 @@ export default class Auth extends Component {
         <div
           className="left-column"
           style={{
-            backgroundImage: `url(${loginImg})`
+            backgroundImage: `url(${marsellaImg})`,
+            backgroundPosition: 'center', // Esto centrará la imagen
+            backgroundSize: 'cover', // Esto asegura que la imagen cubra todo el contenedor
+            backgroundRepeat: 'no-repeat' // Esto asegura que la imagen no se repita
           }}
         />
 

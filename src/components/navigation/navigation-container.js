@@ -5,7 +5,7 @@ import { withRouter } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 
-const NavigationComponent = (props) => {
+const NavigationComponent  = (props) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const NavigationComponent = (props) => {
       <div className="left-side">
         <div className="nav-link-wrapper">
           <NavLink exact to="/" className="nav-logo" >
-            <img  src="../../assets/images/logobidaii.png"/>
+            <img  src="../../assets/images/logobidaii.png" />
           </NavLink>
         </div>
 
@@ -66,4 +66,5 @@ const NavigationComponent = (props) => {
   );
 };
 
+    
 export default withRouter(NavigationComponent);
