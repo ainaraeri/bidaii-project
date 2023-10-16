@@ -56,30 +56,32 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className='form-wrapper'>
         <h2>INICIA SESIÓN</h2>
 
         <div>{this.state.errorText}</div>
 
         <form onSubmit={this.handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Correo electrónico"
-            value={this.state.email}
-            onChange={this.handleChange}
-          />
+          <div className="form-group">
+            <input
+              type="email"
+              name="email"
+              placeholder="Correo electrónico"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Contraseña"
-            value={this.state.password}
-            onChange={this.handleChange}
-          />
+            <input
+              type="password"
+              name="password"
+              placeholder="Contraseña"
+              value={this.state.password}
+              onChange={this.handleChange}
 
-          <div>
-            <button type="submit">Login</button>
+            />
+          </div>
+          <div className="btn-wrapper">
+            <button className='btn' type="submit">Iniciar sesión</button>
           </div>
         </form>
       </div>

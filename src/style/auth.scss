@@ -8,9 +8,10 @@
     }
 
     .right-column {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         justify-content: center;
         align-items: center;
-        background-color: $palegreen;
+        background-color: $lighterpaleblue;
     }
 }
