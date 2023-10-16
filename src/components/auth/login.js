@@ -57,7 +57,7 @@ export default class Login extends Component {
   render() {
     return (
       <div>
-        <h1>INICIA SESIÓN</h1>
+        <h2>INICIA SESIÓN</h2>
 
         <div>{this.state.errorText}</div>
 
@@ -65,7 +65,7 @@ export default class Login extends Component {
           <input
             type="email"
             name="email"
-            placeholder="Your email"
+            placeholder="Correo electrónico"
             value={this.state.email}
             onChange={this.handleChange}
           />
@@ -73,7 +73,7 @@ export default class Login extends Component {
           <input
             type="password"
             name="password"
-            placeholder="Your password"
+            placeholder="Contraseña"
             value={this.state.password}
             onChange={this.handleChange}
           />

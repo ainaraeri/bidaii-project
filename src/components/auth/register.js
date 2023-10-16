@@ -8,6 +8,11 @@ export default class Register extends Component {
     this.state = {
       email: "",
       password: "",
+      name: "",
+      surname: "",
+      age: "",
+      city: ""
+
       // ... otros campos que necesites para el registro
     };
   }
@@ -23,6 +28,10 @@ export default class Register extends Component {
     const registrationData = {
       email: this.state.email,
       password: this.state.password,
+      name: this.state.name,
+      surname: this.state.surname,
+      age: this.state.age,
+      city: this.state.city,
       // ... otros datos del formulario que necesites enviar
     };
   
@@ -40,8 +49,9 @@ export default class Register extends Component {
   render() {
     return (
       <div>
-        <h2>Regístrate</h2>
+        <h2>REGÍSTRATE</h2>
         <form onSubmit={this.handleFormSubmit}>
+
           <input
             type="email"
             name="email"
