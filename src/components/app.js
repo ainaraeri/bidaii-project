@@ -5,7 +5,10 @@ import NavigationContainer from './navigation/navigation-container';
 import Auth from './pages/auth';
 import Home from './pages/home';
 
+
+
 export default class App extends Component {
+  
 
   render() {
     return (
@@ -21,3 +24,4 @@ export default class App extends Component {
     );
   }
 }
+

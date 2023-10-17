@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Login from "../auth/login";
-import Register from "../auth/register"; // Check the correct import path
+import Register from "../auth/register"; 
 import balloonsImg from "../../../static/assets/images/auth/balloons.jpg";
+
 
 export default class Auth extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export default class Auth extends Component {
           }}
         />
 
-<div className="right-column">
+        <div className="right-column">
           <div className="login-container">
             <Login
               handleSuccessfulAuth={this.handleSuccessfulAuth}
