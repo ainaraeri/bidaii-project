@@ -1,4 +1,6 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const express = require('express');
+const mongoose = require('mongoose');
 const uri = process.env.MONGODB_URI||"ainaraerice:<password>@cluster0.djlqrpw.mongodb.net/?retryWrites=true&w=majority";
 
 const port = process.env.PORT || 8080;
