@@ -6,7 +6,7 @@ const uri = process.env.MONGODB_URI||"ainaraerice:<password>@cluster0.djlqrpw.mo
 const port = process.env.PORT || 8080;
 
 
-mongoose.connect(mongoURI, {
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
