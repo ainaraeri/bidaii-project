@@ -5,6 +5,7 @@ const { run } = require('../mongo-connect');
 
 const app = express();
 const port = process.env.PORT || 3001;
+const uri = process.env.MONGODB_URI;
 
 // Conecta a MongoDB
 mongoose.connect('mongodb://localhost:27017/tu-base-de-datos', {
