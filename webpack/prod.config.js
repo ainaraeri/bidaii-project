@@ -15,13 +15,18 @@ const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 
 module.exports = webpackMerge(webpackCommon, {
   bail: true,
+  //entry: ['bootstrap.js'],
   devtool: "source-map",
   mode: "production",
   output: {
     path: path.resolve(__dirname, "../dist"),
+
     filename: "[name]-[hash].min.js",
+
     sourceMapFilename: "[name]-[hash].map",
+
     chunkFilename: "[id]-[chunkhash].js",
+
     publicPath: "/"
   },
 
@@ -65,7 +70,7 @@ module.exports = webpackMerge(webpackCommon, {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(__dirname, "src/bootstrap.js"),
+      template: path.resolve(__dirname, "../bootstrap.js"),
       favicon: path.resolve(__dirname, "../static/favicon.ico"),
       minify: {
         removeComments: true,
