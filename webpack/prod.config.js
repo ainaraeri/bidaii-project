@@ -15,7 +15,7 @@ const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 
 module.exports = webpackMerge(webpackCommon, {
   bail: true,
-  entry: ['./src/bootstrap.js'],
+  entry: '../bootstrap.js',
   devtool: "source-map",
   mode: "production",
   output: {
