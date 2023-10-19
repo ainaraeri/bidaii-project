@@ -15,7 +15,7 @@ const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 
 module.exports = webpackMerge(webpackCommon, {
   bail: true,
-  entry: 'bootstrap.js',
+  entry: ['./src/bootstrap.js'],
   devtool: "source-map",
   mode: "production",
   output: {
@@ -70,7 +70,7 @@ module.exports = webpackMerge(webpackCommon, {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(__dirname, "../static/index.html"),
+      template: path.resolve(__dirname, "src/bootstrap.js"),
       favicon: path.resolve(__dirname, "../static/favicon.ico"),
       minify: {
         removeComments: true,
