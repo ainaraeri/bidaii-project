@@ -16,9 +16,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ],
       },
 
       {
@@ -39,9 +42,8 @@ module.exports = {
   },
 
   plugins: [
-    new SplitChunksPlugin({
-      name: ['app', 'vendor'],
-      minChunks: Infinity,
+    new MiniCssExtractPlugin({
+      filename: 'styles.css', // Nombre del archivo CSS de salida
     }),
   ],
 };
