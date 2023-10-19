@@ -13,7 +13,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = merge(webpackCommon, {
   bail: true,
-  entry: ["../src/bootstrap.js"],
+  entry: ["./src/bootstrap.js"],
   devtool: "source-map",
   mode: "production",
   output: {
