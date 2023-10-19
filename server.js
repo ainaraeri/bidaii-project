@@ -3,7 +3,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://ainaraerice:mioasisdepaz@cluster0.djlqrpw.mongodb.net/?retryWrites=true&w=majority";
 
+const app = express(); // Define 'app' como una instancia de Express
+
+app.use(express.static('assets'));
+
 const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`Servidor en ejecución en el puerto ${port}`);
+});
+
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
