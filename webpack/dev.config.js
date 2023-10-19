@@ -9,40 +9,27 @@ const proxyRules = require('../proxy/rules');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = webpackMerge(webpackCommon, {
 
   devtool: 'inline-source-map',
   mode: 'development',
   output: {
-  
     path: path.resolve(__dirname, '../static/dist'),
-
     filename: '[name].js',
-
     sourceMapFilename: '[name].map',
-
     chunkFilename: '[id]-chunk.js',
-
     publicPath: '/'
-
   },
 
   module: {
-
     rules: [
       {
         test: /\.s?css$/,
         use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 2
-            }
-          },
+          'style-loader',
+          'css-loader',
           {
             loader: 'sass-loader',
             options: {
@@ -50,11 +37,13 @@ module.exports = webpackMerge(webpackCommon, {
               sourceMap: true,
               sourceMapContents: true
             }
+          },
+          {
+            loader: 'postcss-loader'
           }
         ]
-      }
-    ]
-
+      }      
+    ],
   },
 
   plugins: [
@@ -68,7 +57,13 @@ module.exports = webpackMerge(webpackCommon, {
       template: path.resolve(__dirname, '../static/index.html'),
       favicon: path.resolve(__dirname, '../static/favicon.ico')
     }),
-    new HotModuleReplacementPlugin()
+    new HotModuleReplacementPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { from: 'source', to: 'destination' },
+        // Puedes agregar más patrones aquí si necesitas copiar más archivos o directorios.
+      ],
+    }),
   ],
 
   devServer: {
@@ -89,6 +84,6 @@ module.exports = webpackMerge(webpackCommon, {
       errors: true
     },
     proxy: proxyRules
-  }
+  }, 
 
 });
