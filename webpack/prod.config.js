@@ -9,7 +9,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const DefinePlugin = require("webpack/lib/DefinePlugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 const TerserPlugin = require('terser-webpack-plugin');
@@ -17,7 +17,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = webpackMerge(webpackCommon, {
   bail: true,
-  entry: ['bootstrap.js'],
+  entry: "/Users/ainara/Desktop/proyectos-programacion/code/bidaii-project/src/bootstrap.js",
   devtool: "source-map",
   mode: "production",
   output: {
@@ -37,28 +37,36 @@ module.exports = webpackMerge(webpackCommon, {
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,  // Este es el loader de mini-css-extract-plugin.
+          MiniCssExtractPlugin.loader, // Este es el loader de mini-css-extract-plugin.
           'css-loader',
         ],
       },
-            {
-              loader: "postcss-loader",
-              options: {
-                config: {
-                  path: path.resolve(__dirname, "postcss.config.js")
-                },
-                sourceMap: true
-              }
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader, // Este es el loader de mini-css-extract-plugin.
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                path: path.resolve(__dirname, "postcss.config.js"),
+              },
+              sourceMap: true,
             },
-            {
-              loader: "sass-loader",
-              options: {
-                outputStyle: "expanded",
-                sourceMap: true,
-                sourceMapContents: true
-              }
-            }
-          ],
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'expanded',
+              sourceMap: true,
+              sourceMapContents: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
 
   plugins: [
     new HtmlWebpackPlugin({
@@ -81,39 +89,21 @@ module.exports = webpackMerge(webpackCommon, {
     new CopyWebpackPlugin([{ from: path.resolve(__dirname, "../static") }], {
       ignore: ["index.html", "favicon.ico"]
     }),
+    new CleanWebpackPlugin(),
     new CleanWebpackPlugin(["dist"], {
       root: path.resolve(__dirname, ".."),
       exclude: ".gitignore"
     }),
-    new DefinePlugin({
-      "process.env": {
-        NODE_ENV: '"production"'
-      }
+    new MiniCssExtractPlugin({
+      filename: '[name]-[chunkhash].min.css',
     }),
-    new ExtractTextPlugin("[name]-[chunkhash].min.css"),
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        compress: {
-          ie8: true,
-          warnings: false
-        },
-        mangle: {
-          ie8: true
-        },
-        output: {
-          comments: false,
-          ie8: true
-        }
+    new TerserPlugin({
+      terserOptions: {
+        compress: { ie8: true, warnings: false },
+        mangle: { ie8: true },
+        output: { comments: false, ie8: true },
       },
-      sourceMap: true
+      sourceMap: true,
     }),
-    new LoaderOptionsPlugin({
-      options: {
-        context: "/",
-        sassLoader: {
-          includePaths: [path.resolve(__dirname, "../src")]
-        }
-      }
-    })
-  ]
+  ],
 });

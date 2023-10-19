@@ -1,7 +1,5 @@
 // webpack plugins
 const SplitChunksPlugin = require('webpack/lib/optimize/SplitChunksPlugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
 
 module.exports = {
   entry: {
@@ -37,14 +35,6 @@ module.exports = {
         test: /\.(mp4|webm)$/,
         loader: 'url?limit=10000',
       },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-        ],
-      },
-      
     ],
   },
 
@@ -52,10 +42,6 @@ module.exports = {
     new SplitChunksPlugin({
       name: ['app', 'vendor'],
       minChunks: Infinity,
-    }),
-
-    new MiniCssExtractPlugin({
-      filename: 'your-css-file-name.css',
     }),
   ],
 };
