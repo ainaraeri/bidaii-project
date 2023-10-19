@@ -7,10 +7,8 @@ const webpackCommon = require("./common.config");
 // webpack plugins
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const DefinePlugin = require("webpack/lib/DefinePlugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = merge(webpackCommon, {
@@ -32,7 +30,7 @@ module.exports = merge(webpackCommon, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader', // Agregado para procesar archivos CSS
+          'css-loader',
         ],
       },
       {
@@ -44,7 +42,7 @@ module.exports = merge(webpackCommon, {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: [autoprefixer]
+                plugins: [autoprefixer],
               },
               sourceMap: true,
             },
@@ -60,7 +58,7 @@ module.exports = merge(webpackCommon, {
         ],
       },
     ],
-    
+  },
 
   plugins: [
     new HtmlWebpackPlugin({
@@ -90,7 +88,7 @@ module.exports = merge(webpackCommon, {
         mangle: { ie8: true },
         output: { comments: false, ie8: true }
       },
-      extractComments: false 
-    })
+      extractComments: false
+    }),
   ],
-}});
+});
