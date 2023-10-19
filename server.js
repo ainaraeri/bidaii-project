@@ -5,10 +5,10 @@ const uri = "mongodb+srv://ainaraerice:mioasisdepaz@cluster0.djlqrpw.mongodb.net
 
 const app = express(); // Define 'app' como una instancia de Express
 
-app.use(express.static('src'));
+app.use(express.static('static'));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src', 'bootstrap.js'));
+  res.sendFile(path.join(__dirname, 'static', 'index.html'));
 });
 
 const port = process.env.PORT || 8080;
