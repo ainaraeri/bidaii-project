@@ -16,9 +16,6 @@ module.exports = merge(webpackCommon, {
   entry: ["./src/bootstrap.js"],
   devtool: "source-map",
   mode: "production",
-  css: {
-    extract: false
-  },
   output: {
     path: path.resolve(__dirname, "../dist"),
     filename: "[name]-[hash].min.js",
