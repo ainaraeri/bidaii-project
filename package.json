@@ -31,9 +31,9 @@
   "author": "Your Name Here",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bottega-code-school/js-builder/issues"
+    "url": "https://bidaii-project2-f71c13b6eccf.herokuapp.com/"
   },
-  "homepage": "https://github.com/bottega-code-school/js-builder",
+  "homepage": "https://bidaii-project2-f71c13b6eccf.herokuapp.com/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
