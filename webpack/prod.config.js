@@ -15,18 +15,13 @@ const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 
 module.exports = webpackMerge(webpackCommon, {
   bail: true,
-  entry: ['./src/bootstrap.js'],
   devtool: "source-map",
   mode: "production",
   output: {
     path: path.resolve(__dirname, "../dist"),
-
     filename: "[name]-[hash].min.js",
-
     sourceMapFilename: "[name]-[hash].map",
-
     chunkFilename: "[id]-[chunkhash].js",
-
     publicPath: "/"
   },
 
