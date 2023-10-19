@@ -7,8 +7,8 @@ const app = express(); // Define 'app' como una instancia de Express
 
 app.use(express.static('static'));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'static', 'index.html'));
+app.get('/bootstrap.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'bootstrap.js'));
 });
 
 const port = process.env.PORT || 8080;
