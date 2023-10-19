@@ -9,13 +9,15 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const DefinePlugin = require("webpack/lib/DefinePlugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
+const TerserPlugin = require('terser-webpack-plugin');
+
 
 module.exports = webpackMerge(webpackCommon, {
   bail: true,
-  //entry: ['bootstrap.js'],
+  entry: ['bootstrap.js'],
   devtool: "source-map",
   mode: "production",
   output: {
@@ -33,17 +35,12 @@ module.exports = webpackMerge(webpackCommon, {
   module: {
     rules: [
       {
-        test: /\.s?css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                sourceMap: true,
-                importLoaders: 2
-              }
-            },
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,  // Este es el loader de mini-css-extract-plugin.
+          'css-loader',
+        ],
+      },
             {
               loader: "postcss-loader",
               options: {
@@ -61,11 +58,7 @@ module.exports = webpackMerge(webpackCommon, {
                 sourceMapContents: true
               }
             }
-          ]
-        })
-      }
-    ]
-  },
+          ],
 
   plugins: [
     new HtmlWebpackPlugin({
