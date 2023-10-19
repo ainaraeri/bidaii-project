@@ -5,7 +5,7 @@ const uri = "mongodb+srv://ainaraerice:mioasisdepaz@cluster0.djlqrpw.mongodb.net
 
 const app = express(); // Define 'app' como una instancia de Express
 
-app.use(express.static('assets'));
+app.use(express.static('static'));
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
