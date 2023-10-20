@@ -15,11 +15,11 @@ module.exports = merge(webpackCommon, {
   bail: true,
   devtool: "source-map",
   entry: {
-    app: './src/bootstrap.js', 
+    app: './src/bootstrap.js', // Asegúrate de que la ruta sea correcta
   },
   mode: "production",
   output: {
-    path: path.resolve(__dirname, "public"),
+    path: path.resolve(__dirname, "public/js"), // Aquí debes especificar la carpeta "public/js"
     filename: "[name]-[hash].min.js",
     sourceMapFilename: "[name]-[hash].map",
     chunkFilename: "[id]-[chunkhash].js",

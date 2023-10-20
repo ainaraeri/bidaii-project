@@ -8,10 +8,8 @@ const app = express(); // Define 'app' como una instancia de Express
 app.use(express.static('static'));
 
 app.get('/bootstrap.js', (req, res) => {
-  res.type('text/javascript'); // Establece el tipo MIME a JavaScript
   res.sendFile(path.join(__dirname, 'public/js/bootstrap.js'));
 });
-
 
 
 const port = process.env.PORT || 8080;
