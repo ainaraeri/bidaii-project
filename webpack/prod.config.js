@@ -92,5 +92,10 @@ module.exports = merge(webpackCommon, {
       },
       extractComments: false
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/bootstrap.js', to: 'js' }
+      ],
+    }),
   ],
 });
