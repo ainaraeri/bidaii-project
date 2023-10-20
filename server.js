@@ -5,7 +5,6 @@ const uri = "mongodb+srv://ainaraerice:mioasisdepaz@cluster0.djlqrpw.mongodb.net
 const path = require('path');
 
 const app = express(); 
-const express = require('express');
 
 app.use(express.static(path.join(__dirname, 'webpack/public/js')));
 
