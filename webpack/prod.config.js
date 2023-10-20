@@ -14,9 +14,12 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = merge(webpackCommon, {
   bail: true,
   devtool: "source-map",
+  entry: {
+    app: './src/bootstrap.js', 
+  },
   mode: "production",
   output: {
-    path: path.resolve(__dirname, "../dist"),
+    path: path.resolve(__dirname, "public"), // Cambia "dist" a "public"
     filename: "[name]-[hash].min.js",
     sourceMapFilename: "[name]-[hash].map",
     chunkFilename: "[id]-[chunkhash].js",
