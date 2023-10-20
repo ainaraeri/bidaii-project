@@ -5,7 +5,7 @@ const uri = "mongodb+srv://ainaraerice:mioasisdepaz@cluster0.djlqrpw.mongodb.net
 
 const app = express(); // Define 'app' como una instancia de Express
 
-app.use(express.static('static'));
+app.use(express.static(path.join(__dirname, 'src/webpack/public/js')));
 
 app.get('/bootstrap.js', (req, res) => {
   res.sendFile(path.join(__dirname + '../public/js/bootstrap.js'));
