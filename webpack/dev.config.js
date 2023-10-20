@@ -14,12 +14,15 @@ const webpackCommon = require('./common.config');
 module.exports = merge(webpackCommon, {
   devtool: 'inline-source-map',
   mode: 'development',
+  entry: {
+    app: './src/bootstrap.js', // Ruta relativa a tu carpeta raíz
+  },
   output: {
-    path: path.resolve(__dirname, '../static/dist'), // Coloca los archivos generados en /static/dist
-    filename: 'js/[name].js', // Coloca los archivos en la carpeta /static/dist/js
-    sourceMapFilename: 'js/[name].map',
-    chunkFilename: 'js/[id]-chunk.js',
-    publicPath: '/' // Puedes ajustar esto según tus necesidades
+    path: path.resolve(__dirname, 'webpack/public/js'), // Ruta relativa a tu carpeta raíz
+    filename: '[name].js',
+    sourceMapFilename: '[name].map',
+    chunkFilename: '[id]-chunk.js',
+    publicPath: '/'
   },
 
   module: {

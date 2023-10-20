@@ -17,15 +17,15 @@ module.exports = merge(webpackCommon, {
   bail: true,
   devtool: 'source-map',
   entry: {
-    app: './src/bootstrap.js', // Asegúrate de que la ruta sea correcta
+    app: './src/bootstrap.js', // Ruta relativa a tu carpeta raíz
   },
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'public/js'), // Coloca los archivos generados en /public/js
+    path: path.resolve(__dirname, 'webpack/public/js'), // Ruta relativa a tu carpeta raíz
     filename: '[name]-[hash].min.js',
-    sourceMapFilename: 'js/[name]-[hash].map', // Coloca los archivos de origen en /public/js
-    chunkFilename: 'js/[id]-[chunkhash].js',
-    publicPath: '/' // Puedes ajustar esto según tus necesidades
+    sourceMapFilename: '[name]-[hash].map',
+    chunkFilename: '[id]-[chunkhash].js',
+    publicPath: '/'
   },
 
   module: {
