@@ -13,17 +13,17 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = merge(webpackCommon, {
   bail: true,
-  devtool: "source-map",
+  devtool: 'source-map',
   entry: {
     app: './src/bootstrap.js', // Asegúrate de que la ruta sea correcta
   },
-  mode: "production",
+  mode: 'production',
   output: {
-    path: path.resolve(__dirname, "public/js"), // Aquí debes especificar la carpeta "public/js"
-    filename: "[name]-[hash].min.js",
-    sourceMapFilename: "[name]-[hash].map",
-    chunkFilename: "[id]-[chunkhash].js",
-    publicPath: "/"
+    path: path.resolve(__dirname, 'public/js'), // Coloca los archivos generados en /public/js
+    filename: '[name]-[hash].min.js',
+    sourceMapFilename: 'js/[name]-[hash].map', // Coloca los archivos de origen en /public/js
+    chunkFilename: 'js/[id]-[chunkhash].js',
+    publicPath: '/' // Puedes ajustar esto según tus necesidades
   },
 
   module: {

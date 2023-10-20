@@ -12,15 +12,14 @@ const { merge } = require('webpack-merge');
 const webpackCommon = require('./common.config');
 
 module.exports = merge(webpackCommon, {
-
   devtool: 'inline-source-map',
   mode: 'development',
   output: {
-    path: path.resolve(__dirname, '../static/dist'),
-    filename: '[name].js',
-    sourceMapFilename: '[name].map',
-    chunkFilename: '[id]-chunk.js',
-    publicPath: '/'
+    path: path.resolve(__dirname, '../static/dist'), // Coloca los archivos generados en /static/dist
+    filename: 'js/[name].js', // Coloca los archivos en la carpeta /static/dist/js
+    sourceMapFilename: 'js/[name].map',
+    chunkFilename: 'js/[id]-chunk.js',
+    publicPath: '/' // Puedes ajustar esto según tus necesidades
   },
 
   module: {
