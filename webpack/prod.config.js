@@ -19,7 +19,7 @@ module.exports = merge(webpackCommon, {
   },
   mode: "production",
   output: {
-    path: path.resolve(__dirname, "public"), // Cambia "dist" a "public"
+    path: path.resolve(__dirname, "public"),
     filename: "[name]-[hash].min.js",
     sourceMapFilename: "[name]-[hash].map",
     chunkFilename: "[id]-[chunkhash].js",
