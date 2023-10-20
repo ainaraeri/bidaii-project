@@ -1,17 +1,17 @@
 const path = require('path');
-const webpackMerge = require('webpack-merge');
-const webpackCommon = require('./common.config');
+
 
 const env = require('../env');
 const proxyRules = require('../proxy/rules');
 
-// webpack plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { merge } = require('webpack-merge');
+const webpackCommon = require('./common.config');
 
-module.exports = webpackMerge(webpackCommon, {
+module.exports = merge(webpackCommon, {
 
   devtool: 'inline-source-map',
   mode: 'development',
@@ -58,30 +58,19 @@ module.exports = webpackMerge(webpackCommon, {
       favicon: path.resolve(__dirname, '../static/favicon.ico')
     }),
     new HotModuleReplacementPlugin(),
-    new CopyPlugin({
-      patterns: [
-        { from: 'source', to: 'destination' },
-        // Puedes agregar más patrones aquí si necesitas copiar más archivos o directorios.
-      ],
-    }),
+    
   ],
 
   devServer: {
     host: env.devServer.host || 'localhost',
     port: env.devServer.port || 3000,
-    contentBase: path.resolve(__dirname, '../static'),
-    watchContentBase: true,
     compress: true,
     hot: true,
     historyApiFallback: {
       disableDotRule: true
     },
-    watchOptions: {
-      ignored: /node_modules/
-    },
-    overlay: {
-      warnings: true,
-      errors: true
+    client: {
+      overlay: true,
     },
     proxy: proxyRules
   }, 
