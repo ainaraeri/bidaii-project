@@ -8,7 +8,7 @@ const app = express(); // Define 'app' como una instancia de Express
 app.use(express.static('static'));
 
 app.get('/bootstrap.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'bootstrap.js'));
+  res.sendFile(path.join(__dirname, 'public/js/bootstrap.js')); 
 });
 
 

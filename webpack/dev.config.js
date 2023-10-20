@@ -58,6 +58,11 @@ module.exports = merge(webpackCommon, {
       favicon: path.resolve(__dirname, '../static/favicon.ico')
     }),
     new HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/bootstrap.js', to: 'js' }
+      ],
+    }),
     
   ],
 
