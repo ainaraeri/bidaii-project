@@ -66,6 +66,7 @@ module.exports = merge(webpackCommon, {
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(__dirname, "../static/index.html"),
+      template: path.resolve(__dirname, '../bootstrap.js'),
       favicon: path.resolve(__dirname, "../static/favicon.ico"),
       minify: {
         removeComments: true,
