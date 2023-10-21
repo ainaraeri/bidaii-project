@@ -1,7 +1,6 @@
 import React from 'react';
-import marsellaImg from "../../static/assets/images/marsella.jpg";
+//import marsellaImg from "../../../static/assets/images/marsella.jpg";
 import { NavLink } from 'react-router-dom';
-
 
 export default function() {
   return (
@@ -13,7 +12,7 @@ export default function() {
               src={"../../assets/images/background_video2.mp4"}
               type="video/mp4"
             />
-          </video>
+          </video> 
           <h1 className='video-heading'>Planifica Tu Viaje Perfecto: Un Click, Mil Aventuras</h1>
         </div>
       </div>
@@ -33,7 +32,7 @@ export default function() {
           <div
             className="grid-item"
             style={{
-              backgroundImage: "../../../static/assets/images/marsella.jpg",
+              backgroundImage: `url('/assets/images/marsella.jpg')`,
               backgroundPosition: "center", // Esto centrará la imagen
               backgroundSize: "cover", // Esto asegura que la imagen cubra todo el contenedor
               backgroundRepeat: "no-repeat", // Esto asegura que la imagen no se repita
@@ -45,7 +44,7 @@ export default function() {
           <div
             className="grid-item"
             style={{
-              backgroundImage: `url(${marsellaImg})`,
+              backgroundImage: `url('/assets/images/marsella.jpg')`,
               backgroundPosition: "center", // Esto centrará la imagen
               backgroundSize: "cover", // Esto asegura que la imagen cubra todo el contenedor
               backgroundRepeat: "no-repeat", // Esto asegura que la imagen no se repita
@@ -75,7 +74,7 @@ export default function() {
           <div
             className="grid-item"
             style={{
-              backgroundImage: `url(${marsellaImg})`,
+              backgroundImage: `url('/assets/images/marsella.jpg')`,
               backgroundPosition: "center", // Esto centrará la imagen
               backgroundSize: "cover", // Esto asegura que la imagen cubra todo el contenedor
               backgroundRepeat: "no-repeat", // Esto asegura que la imagen no se repita
@@ -87,7 +86,7 @@ export default function() {
           <div
             className="grid-item"
             style={{
-              backgroundImage: `url(${marsellaImg})`,
+              backgroundImage: `url('/assets/images/marsella.jpg')`,
               backgroundPosition: "center", // Esto centrará la imagen
               backgroundSize: "cover", // Esto asegura que la imagen cubra todo el contenedor
               backgroundRepeat: "no-repeat", // Esto asegura que la imagen no se repita
@@ -116,7 +115,7 @@ export default function() {
           <div
             className="grid-item"
             style={{
-              backgroundImage: `url(${marsellaImg})`,
+              backgroundImage: `url('/assets/images/marsella.jpg')`,
               backgroundPosition: "center", // Esto centrará la imagen
               backgroundSize: "cover", // Esto asegura que la imagen cubra todo el contenedor
               backgroundRepeat: "no-repeat", // Esto asegura que la imagen no se repita

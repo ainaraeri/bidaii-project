@@ -13,6 +13,7 @@ app.get('/bootstrap.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'webpack/public/js/bootstrap.js')); // NOTOCAR
 });
 
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
