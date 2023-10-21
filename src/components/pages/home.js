@@ -1,5 +1,6 @@
 import React from 'react';
-import marsellaImg from "../../../static/assets/images/marsella.jpg";
+import marsellaImg from "../../../webpack/webpack/public/assets/images/marsella.jpg";
+//import marsellaImg from "../../../static/assets/images/marsella.jpg";
 import { NavLink } from 'react-router-dom';
 
 
