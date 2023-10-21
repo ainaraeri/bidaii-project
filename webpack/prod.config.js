@@ -21,7 +21,7 @@ module.exports = merge(webpackCommon, {
   },
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'webpack/public/js'), // Ruta relativa a tu carpeta raíz
+    path: path.resolve(__dirname, 'webpack/public'), // Ruta relativa a tu carpeta raíz
     filename: '[name]-[hash].min.js',
     sourceMapFilename: '[name]-[hash].map',
     chunkFilename: '[id]-[chunkhash].js',
@@ -96,7 +96,8 @@ module.exports = merge(webpackCommon, {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/bootstrap.js', to: 'js' }
+        { from: 'src/bootstrap.js', to: 'js' },
+        { from: 'static/assets/images', to: 'assets/images' }
       ],
     }),
   ],
