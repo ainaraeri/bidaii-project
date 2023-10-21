@@ -9,7 +9,7 @@ export default function() {
         <div className="video-container">
           <video autoPlay muted loop>
             <source
-              src={"../../assets/images/background_video2.mp4"}
+              src={"/assets/images/background_video2.mp4"}
               type="video/mp4"
             />
           </video> 
