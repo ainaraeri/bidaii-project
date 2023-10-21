@@ -1,6 +1,5 @@
 import React from 'react';
-import marsellaImg from "../../../webpack/webpack/public/assets/images/marsella.jpg";
-//import marsellaImg from "../../../static/assets/images/marsella.jpg";
+import marsellaImg from "../../static/assets/images/marsella.jpg";
 import { NavLink } from 'react-router-dom';
 
 
@@ -34,7 +33,7 @@ export default function() {
           <div
             className="grid-item"
             style={{
-              backgroundImage: `url(${marsellaImg})`,
+              backgroundImage: "../../../static/assets/images/marsella.jpg",
               backgroundPosition: "center", // Esto centrará la imagen
               backgroundSize: "cover", // Esto asegura que la imagen cubra todo el contenedor
               backgroundRepeat: "no-repeat", // Esto asegura que la imagen no se repita
