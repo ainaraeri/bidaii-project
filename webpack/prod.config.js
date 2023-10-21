@@ -17,11 +17,11 @@ module.exports = merge(webpackCommon, {
   bail: true,
   devtool: 'source-map',
   entry: {
-    app: './src/bootstrap.js', // Ruta relativa a tu carpeta raíz
+    app: './src/bootstrap.js',
   },
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'webpack/public'), // Ruta relativa a tu carpeta raíz
+    path: path.resolve(__dirname, 'webpack/public'),
     filename: '[name]-[hash].min.js',
     sourceMapFilename: '[name]-[hash].map',
     chunkFilename: '[id]-[chunkhash].js',
@@ -62,23 +62,12 @@ module.exports = merge(webpackCommon, {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/i,
+        test: /\.(png|jpe?g|gif|svg|mp4)$/i,
         use: [
           {
             loader: 'file-loader',
             options: {
               name: 'assets/images/[name].[ext]',
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(mp4)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: 'assets/videos',
             },
           },
         ],
@@ -103,7 +92,7 @@ module.exports = merge(webpackCommon, {
         minifyJS: true,
         minifyCSS: true,
         minifyURLs: true
-      }
+      },
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
@@ -113,14 +102,14 @@ module.exports = merge(webpackCommon, {
       terserOptions: {
         compress: { ie8: true, warnings: false },
         mangle: { ie8: true },
-        output: { comments: false, ie8: true }
+        output: { comments: false, ie8: true },
       },
-      extractComments: false
+      extractComments: false,
     }),
     new CopyWebpackPlugin({
       patterns: [
         { from: 'src/bootstrap.js', to: 'js' },
-        { from: 'static/assets/images', to: 'assets/images' }
+        { from: 'static/assets/images', to: 'assets/images' },
       ],
     }),
   ],
