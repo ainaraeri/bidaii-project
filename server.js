@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const uri = "mongodb+srv://ainaraerice:mioasisdepaz@cluster0.djlqrpw.mongodb.net/?retryWrites=true&w=majority";
 const path = require('path');
 const bodyParser = require('body-parser');
+const User = require('./src/components/models/user');
+
 
 const app = express(); 
 
@@ -25,8 +27,6 @@ app.post('/register', (req, res) => {
   // Realiza validaciones de correo y contraseña aquí.
 
   // Crea un nuevo usuario y guárdalo en la base de datos.
-  const User = require('./models/user'); // Asegúrate de tener un modelo de usuario definido.
-
   const newUser = new User({
     email,
     password,
@@ -40,6 +40,8 @@ app.post('/register', (req, res) => {
     }
   });
 });
+
+  
 
 // Inicia el servidor.
 const port = process.env.PORT || 8080;
