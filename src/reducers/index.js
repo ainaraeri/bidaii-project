@@ -3,7 +3,7 @@ import App from '../components/app';
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.querySelector('.app-wrapper'));
 root.render(
   <React.StrictMode>
     <App />
