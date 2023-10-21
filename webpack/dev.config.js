@@ -18,8 +18,8 @@ module.exports = merge(webpackCommon, {
     app: "./src/bootstrap.js", // Ruta relativa a tu carpeta raíz
   },
   output: {
-    path: path.resolve(__dirname, "webpack/public"),
-    filename: "js/bootstrap.js",
+    path: path.resolve(__dirname, "webpack/webpack/public/js"), // Asegúrate de que coincida con la ubicación donde se guarda bootstrap.js
+    filename: "[name].js",
     sourceMapFilename: "[name].map",
     chunkFilename: "[id]-chunk.js",
     publicPath: "/",

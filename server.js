@@ -6,13 +6,12 @@ const path = require('path');
 
 const app = express(); 
 
-app.use(express.static(path.join(__dirname, 'webpack/public')));
+app.use(express.static(path.join(__dirname, 'webpack/webpack/public')));
 
 app.get('/bootstrap.js', (req, res) => {
   res.type('application/javascript');
   res.sendFile(path.join(__dirname, 'webpack/public/js/bootstrap.js'));
 });
-
 
 
 const port = process.env.PORT || 8080;
