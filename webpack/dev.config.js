@@ -12,17 +12,17 @@ const { merge } = require('webpack-merge');
 const webpackCommon = require('./common.config');
 
 module.exports = merge(webpackCommon, {
-  devtool: 'inline-source-map',
-  mode: 'development',
+  devtool: "inline-source-map",
+  mode: "development",
   entry: {
-    app: './src/bootstrap.js', // Ruta relativa a tu carpeta raíz
+    app: "./src/bootstrap.js", // Ruta relativa a tu carpeta raíz
   },
   output: {
-    path: path.resolve(__dirname, 'webpack/public'), // Ruta relativa a tu carpeta raíz
-    filename: '[name].js',
-    sourceMapFilename: '[name].map',
-    chunkFilename: '[id]-chunk.js',
-    publicPath: '/'
+    path: path.resolve(__dirname, "webpack/public"), // Ruta relativa a tu carpeta raíz
+    filename: "[name].js",
+    sourceMapFilename: "[name].map",
+    chunkFilename: "[id]-chunk.js",
+    publicPath: "/",
   },
 
   module: {
@@ -30,57 +30,77 @@ module.exports = merge(webpackCommon, {
       {
         test: /\.s?css$/,
         use: [
-          'style-loader',
-          'css-loader',
+          "style-loader",
+          "css-loader",
           {
-            loader: 'sass-loader',
+            loader: "sass-loader",
             options: {
-              outputStyle: 'expanded',
+              outputStyle: "expanded",
               sourceMap: true,
-              sourceMapContents: true
-            }
+              sourceMapContents: true,
+            },
           },
           {
-            loader: 'postcss-loader'
-          }
-        ]
-      }      
+            loader: "postcss-loader",
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "assets/images/[name].[ext]",
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(mp4|webm)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "assets/videos/[name].[ext]",
+            },
+          },
+        ],
+      },
     ],
   },
 
   plugins: [
     new DefinePlugin({
-      'process.env': {
-        NODE_ENV: "'development'"
-      }
+      "process.env": {
+        NODE_ENV: "'development'",
+      },
     }),
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(__dirname, '../static/index.html'),
-      favicon: path.resolve(__dirname, '../static/favicon.ico')
+      template: path.resolve(__dirname, "../static/index.html"),
+      favicon: path.resolve(__dirname, "../static/favicon.ico"),
     }),
     new HotModuleReplacementPlugin(),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/bootstrap.js', to: 'js' },
-        { from: 'static/assets/images', to: 'assets/images' }
+        { from: "src/bootstrap.js", to: "js" },
+        { from: "static/assets/images", to: "assets/images" },
       ],
     }),
-    
   ],
 
   devServer: {
-    host: env.devServer.host || 'localhost',
+    host: env.devServer.host || "localhost",
     port: env.devServer.port || 3000,
     compress: true,
     hot: true,
     historyApiFallback: {
-      disableDotRule: true
+      disableDotRule: true,
     },
     client: {
       overlay: true,
     },
-    proxy: proxyRules
-  }, 
-
+    proxy: proxyRules,
+  },
 });

@@ -61,8 +61,31 @@ module.exports = merge(webpackCommon, {
           },
         ],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'assets/images/[name].[ext]',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(mp4)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'assets/videos',
+            },
+          },
+        ],
+      },
     ],
   },
+  
 
   plugins: [
     new HtmlWebpackPlugin({
