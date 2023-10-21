@@ -6,11 +6,11 @@ const path = require('path');
 
 const app = express(); 
 
-app.use(express.static(path.join(__dirname, 'webpack/public/js')));
+app.use(express.static(path.join(__dirname, 'webpack/public')));
 
 app.get('/bootstrap.js', (req, res) => {
   res.type('application/javascript'); // Establece el tipo MIME
-  res.sendFile(path.join(__dirname, 'webpack/public/js/js/bootstrap.js'));
+  res.sendFile(path.join(__dirname, 'webpack/public/js/bootstrap.js'));
 });
 
 
