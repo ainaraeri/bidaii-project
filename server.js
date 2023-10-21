@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, 'webpack/public')));
 
 app.get('/bootstrap.js', (req, res) => {
   res.type('application/javascript');
-  res.sendFile(path.join(__dirname, 'src/bootstrap.js'));
+  res.sendFile(path.join(__dirname, 'webpack/public/js/bootstrap.js'));
 });
 
 
