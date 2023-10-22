@@ -36,7 +36,7 @@ export default class Register extends Component {
     };
   
     axios
-      .post("https://bidaii-project-572dd4c65cf8.herokuapp.com/register", registrationData)
+      .post("http://localhost:8080/register", registrationData)
       .then((response) => {
         console.log("Registro exitoso:", response.data);
         // Puedes redirigir a otra página después del registro si lo deseas

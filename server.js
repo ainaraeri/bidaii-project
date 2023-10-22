@@ -9,8 +9,17 @@ const client = new MongoClient(uri);
 
 const app = express(); 
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://bidaii-project2-f71c13b6eccf.herokuapp.com/',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  exposedHeaders: ['Authorization'],
+  credentials: true,
+  maxAge: 3600,
+};
 
+app.use(cors(corsOptions));
+app.options('/register', cors(corsOptions));
 app.use(express.static(path.join(__dirname, 'webpack/webpack/public'))); //NO TOCAR
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(express.json());
