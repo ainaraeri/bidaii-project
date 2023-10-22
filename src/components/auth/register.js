@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom"; // Importa useHistory
+import { withRouter } from "react-router"; // Importa withRouter
 
 
-export default class Register extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +41,8 @@ export default class Register extends Component {
       .post("http://localhost:8080/register", registrationData)
       .then((response) => {
         console.log("Registro exitoso:", response.data);
-        // Puedes redirigir a otra página después del registro si lo deseas
+        this.props.history.push("/user-dashboard");
+
       })
       .catch((error) => {
         console.error("Error durante el registro:", error);
@@ -77,3 +80,5 @@ export default class Register extends Component {
     );
   }
 }
+
+export default withRouter(Register); // Envuelve el componente con withRouter

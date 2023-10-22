@@ -4,7 +4,8 @@ import axios from "axios";
 import NavigationContainer from './navigation/navigation-container';
 import Auth from './pages/auth';
 import Home from './pages/home';
-
+import UserDashboard from './auth/user-dashboard';
+import Register from './auth/register';
 export default class App extends Component {
   
 
@@ -15,7 +16,9 @@ export default class App extends Component {
           <NavigationContainer />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/iniciosesion" component={Auth} />
+            <Route path="/login" component={Auth} />
+            <Route path="/register" component={Register} />
+            <Route path="/user-dashboard" component={UserDashboard} />
           </Switch>
         </Router>
       </div>

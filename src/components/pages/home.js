@@ -124,7 +124,7 @@ export default function() {
         </div>
       </div>
 
-      <NavLink className="btn" exact to="/iniciosesion">
+      <NavLink className="btn" exact to="/login">
         VÁMONOS
       </NavLink>
     </div>
