@@ -9,7 +9,7 @@ const client = new MongoClient(uri);
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const { secretToken } = require('./src/components/auth/token'); 
+const { secretToken } = require('./src/token'); 
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const app = express(); 
@@ -20,7 +20,7 @@ const server = http.createServer(app);
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: 'http://localhost:8080',
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   exposedHeaders: ['Authorization'],
@@ -46,32 +46,35 @@ app.get('/bootstrap.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'webpack/public/js/bootstrap.js')); // NOTOCAR
 });
 
-// Registro
+// Ruta GET para obtener la lista de usuarios
+app.get('/api/users', async (req, res) => {
+  try {
+    const users = await User.find(); // Esto consulta todos los usuarios en la base de datos
+    res.json(users); // Responde con la lista de usuarios en formato JSON
+  } catch (error) {
+    console.error('Error al obtener la lista de usuarios:', error);
+    res.status(500).json({ message: 'Error al obtener la lista de usuarios' });
+  }
+});
+
+//Registro
 app.post('/register', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Realiza una validación básica, asegurándote de que los campos no estén vacíos y otros criterios que desees
     if (!email || !password) {
       return res.status(400).json({ message: 'Campos incompletos' });
     }
 
-    // Aplica una política de contraseñas sólida, como longitud mínima y complejidad
     if (password.length < 8) {
       return res.status(400).json({ message: 'La contraseña es demasiado corta' });
     }
 
-    // Hashea la contraseña antes de almacenarla
-    const hashedPassword = await bcrypt.hash(password, 10); // El segundo parámetro es el "salting" (número de rondas de hashing)
-
-    // Crea un nuevo usuario con la contraseña hasheada
     const newUser = new User({
       email,
-      password: hashedPassword,
+      password, // Almacena la contraseña en texto claro en la base de datos
     });
 
-
-    // Guarda el usuario en la base de datos
     await newUser.save();
 
     res.status(200).json({ message: 'Usuario registrado con éxito' });
@@ -81,49 +84,19 @@ app.post('/register', async (req, res) => {
   }
 });
 
-
-// Endpoint para obtener información del usuario autenticado
-app.get('/getAuthenticatedUser', (req, res) => {
-  // Obtener el token JWT de la cabecera de autorización
-  const token = req.headers.authorization.split(' ')[1];
-
-  // Verificar el token
-  jwt.verify(token, secretToken, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Token inválido' });
-    }
-
-    // El token es válido, puedes devolver información del usuario desde tu base de datos
-    const userId = decoded.userId; // Supongamos que el token contiene el ID del usuario
-
-    // Consultar la base de datos para obtener información del usuario
-    const user = getUserDataFromDatabase(userId);
-
-    res.json(user);
-  });
-});
-
-// Inicio de sesión
+//Inicio sesión
 app.post('/login', async (req, res) => {
-  console.log('Solicitud de inicio de sesión recibida');
   try {
     const { email, password } = req.body;
-    // Busca el usuario en la base de datos por el correo electrónico
     const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(401).json({ message: 'Correo electrónico incorrecto' });
     }
-    
-    // Verifica la contraseña utilizando bcrypt.compare()
-    const passwordMatch = await bcrypt.compare(password, user.password);
 
-    if (passwordMatch) {
-      // La contraseña coincide, genera el token y responde con éxito
-      const token = jwt.sign({ userId: user._id }, secretToken, { expiresIn: '1h' });
-      res.json({ token });
+    if (password === user.password) {
+      res.json({ message: 'Inicio de sesión exitoso' });
     } else {
-      // La contraseña no coincide, responde con un estado 401
       res.status(401).json({ message: 'Contraseña incorrecta' });
     }
   } catch (error) {
@@ -132,7 +105,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-  
+
 // Inicia el servidor HTTP
 const port = process.env.PORT || 8080;
 httpServer.listen(port, () => {

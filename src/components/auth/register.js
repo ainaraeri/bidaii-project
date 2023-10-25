@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom"; // Importa useHistory
-import { withRouter } from "react-router"; // Importa withRouter
-
+import { withRouter } from "react-router";
 
 class Register extends Component {
   constructor(props) {
@@ -10,12 +8,6 @@ class Register extends Component {
     this.state = {
       email: "",
       password: "",
-      name: "",
-      surname: "",
-      age: "",
-      city: ""
-
-      // ... otros campos que necesites para el registro
     };
   }
 
@@ -26,17 +18,18 @@ class Register extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-  
+
+    // Validar que la contraseña tenga al menos 8 caracteres
+    if (this.state.password.length < 8) {
+      alert("La contraseña debe tener al menos 8 caracteres.");
+      return;
+    }
+
     const registrationData = {
       email: this.state.email,
       password: this.state.password,
-      name: this.state.name,
-      surname: this.state.surname,
-      age: this.state.age,
-      city: this.state.city,
-      // ... otros datos del formulario que necesites enviar
     };
-  
+
     axios
       .post("http://localhost:8080/register", registrationData)
       .then((response) => {
@@ -45,8 +38,10 @@ class Register extends Component {
       })
       .catch((error) => {
         console.error("Error durante el registro:", error);
+        alert("Error durante el registro. Inténtalo de nuevo.");
       });
   };
+
 
   render() {
     return (
@@ -80,4 +75,4 @@ class Register extends Component {
   }
 }
 
-export default withRouter(Register); // Envuelve el componente con withRouter
+export default withRouter(Register);

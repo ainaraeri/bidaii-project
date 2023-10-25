@@ -24,7 +24,7 @@ export default class App extends Component {
             <Route path="/auth" component={Auth} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
-            <PrivateRoute path="/user-dashboard" component={UserDashboard} />
+            <Route path="/user-dashboard" component={UserDashboard} />
           </Switch>
         </Router>
       </div>
