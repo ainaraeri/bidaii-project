@@ -42,7 +42,6 @@ class Register extends Component {
       .then((response) => {
         console.log("Registro exitoso:", response.data);
         this.props.history.push("/user-dashboard");
-
       })
       .catch((error) => {
         console.error("Error durante el registro:", error);

@@ -52,12 +52,12 @@ const NavigationComponent  = (props) => {
 
       <div className="right-side">
         <div className="nav-link-wrapper">
-          <NavLink exact to="/login" className="nav-link-active">
+          <NavLink exact to="/auth" className="nav-link-active">
             INICIA SESIÓN
           </NavLink>
         </div>
         <div className="nav-link-wrapper">
-          <NavLink exact to="/login" className="user-icon">
+          <NavLink exact to="/auth" className="user-icon">
             <FontAwesomeIcon icon={faCircleUser} className='icon'/>
           </NavLink>
         </div>
