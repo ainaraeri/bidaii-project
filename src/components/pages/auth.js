@@ -12,24 +12,29 @@ export default class Auth extends Component {
   }
 
   handleSuccessfulAuth() {
+    console.log("Inicio de sesión exitoso");
     this.props.handleSuccessfulLogin();
     this.props.history.push("/user-dashboard");
   }
-
+  
   handleUnsuccessfulAuth() {
+    console.log("Inicio de sesión fallido");
     this.props.handleUnsuccessfulLogin();
+    this.setState({ errorText: "Error en el inicio de sesión" });
   }
+  
 
   render() {
+    console.log("Estado de autenticación:", this.props.isAuthenticated);
     return (
       <div className="auth-page-wrapper">
         <div
           className="left-column"
           style={{
             backgroundImage: `url('/assets/images/auth/balloons.jpg')`,
-            backgroundPosition: "center", // Esto centrará la imagen
-            backgroundSize: "cover", // Esto asegura que la imagen cubra todo el contenedor
-            backgroundRepeat: "no-repeat", // Esto asegura que la imagen no se repita
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
           }}
         />
 
@@ -40,9 +45,11 @@ export default class Auth extends Component {
               handleUnsuccessfulAuth={this.handleUnsuccessfulAuth}
             />
           </div>
-
           <div className="register-container">
-            <Register />
+            <Register
+              handleSuccessfulAuth={this.handleSuccessfulAuth}
+              handleUnsuccessfulAuth={this.handleUnsuccessfulAuth}
+            />
           </div>
         </div>
       </div>

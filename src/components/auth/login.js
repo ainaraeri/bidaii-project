@@ -30,13 +30,19 @@ class Login extends Component {
       })
       .then((response) => {
         console.log("Inicio de sesión exitoso:", response.data);
+        // Llamar a la función para actualizar el estado de autenticación
+        this.props.handleSuccessfulAuth();
+        // Redirigir a la página del panel de usuario
         this.props.history.push("/user-dashboard");
-      })
+      })      
       .catch((error) => {
         console.error("Error en el inicio de sesión:", error);
+        // Puedes manejar errores y mostrar un mensaje adecuado si es necesario
+        this.props.handleUnsuccessfulAuth();  // Asegúrate de que esté correctamente llamada
+        this.setState({ errorText: "Error en el inicio de sesión" });
       });
   }
-
+  
   render() {
     return (
       <div className="form-wrapper">

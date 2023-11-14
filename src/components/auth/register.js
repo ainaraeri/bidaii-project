@@ -9,6 +9,9 @@ class Register extends Component {
       email: "",
       password: "",
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   handleInputChange = (event) => {
@@ -18,30 +21,33 @@ class Register extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-
     // Validar que la contraseña tenga al menos 8 caracteres
     if (this.state.password.length < 8) {
       alert("La contraseña debe tener al menos 8 caracteres.");
       return;
     }
-
+  
     const registrationData = {
       email: this.state.email,
       password: this.state.password,
     };
-
+  
     axios
       .post("http://localhost:8080/register", registrationData)
       .then((response) => {
         console.log("Registro exitoso:", response.data);
+        // Llamar a la función para actualizar el estado de autenticación
+        this.props.handleSuccessfulAuth();
+        // Redirigir a la página del panel de usuario
         this.props.history.push("/user-dashboard");
-      })
+      })      
       .catch((error) => {
         console.error("Error durante el registro:", error);
         alert("Error durante el registro. Inténtalo de nuevo.");
+        // Llamar a la función para manejar la autenticación no exitosa
+        this.props.handleUnsuccessfulAuth();
       });
   };
-
 
   render() {
     return (

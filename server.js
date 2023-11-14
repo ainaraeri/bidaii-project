@@ -20,7 +20,7 @@ const server = http.createServer(app);
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: '*',
+  origin: 'http://localhost:8080',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   exposedHeaders: ['Authorization'],
@@ -29,7 +29,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('/auth', cors(corsOptions));
+
 app.use(express.static(path.join(__dirname, 'webpack/webpack/public'))); //NO TOCAR
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(express.json());
@@ -77,6 +77,7 @@ app.post('/register', async (req, res) => {
 
     await newUser.save();
 
+    res.cookie('authenticated', true); // Establece una cookie para indicar que el usuario está autenticado
     res.status(200).json({ message: 'Usuario registrado con éxito' });
   } catch (error) {
     console.error('Error:', error);
@@ -84,7 +85,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-//Inicio sesión
+// Inicio sesión
 app.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -95,7 +96,8 @@ app.post('/login', async (req, res) => {
     }
 
     if (password === user.password) {
-      res.json({ message: 'Inicio de sesión exitoso' });
+      res.cookie('authenticated', true); // Establece una cookie para indicar que el usuario está autenticado
+      res.json({ message: 'Inicio de sesión exitoso', user: user.email });
     } else {
       res.status(401).json({ message: 'Contraseña incorrecta' });
     }

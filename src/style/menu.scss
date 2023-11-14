@@ -1,0 +1,36 @@
+.sidebar {
+    width: 200px;
+    height: 100%;
+    background-color: $palegreen;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    padding-top: 10px;
+
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    color: white; // Color del texto
+    text-decoration: none;
+    padding: 10px 20px; // Espaciado interno
+    transition: background-color 0.3s;
+    font-size: 14px;
+  
+    &:hover {
+      background-color: white;
+      color: $charcoal;
+
+    }
+  
+    .menu-icon {
+      margin-right: 10px; // Espaciado entre el ícono y el texto
+    }
+  }
+  
+  .main-content {
+    margin-left: 200px; // Ancho del menú lateral + margen izquierdo para el contenido principal
+    padding: 20px; // Ajusta el espaciado según tus necesidades
+  }
+  

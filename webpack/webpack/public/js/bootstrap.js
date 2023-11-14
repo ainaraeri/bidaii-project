@@ -14,6 +14,9 @@ const createStoreWithMiddleware = applyMiddleware()(createStore);
 
 import './style/main.scss';
 
+axios.defaults.withCredentials = true; // Configura withCredentials
+
+
 function main() {
   const root = createRoot(document.querySelector('.app-wrapper')); // Use ReactDOM.createRoot
   root.render(
