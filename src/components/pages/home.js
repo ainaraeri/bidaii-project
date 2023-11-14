@@ -1,6 +1,8 @@
 import React from 'react';
 //import marsellaImg from "../../../static/assets/images/marsella.jpg";
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+
 
 export default function() {
   return (

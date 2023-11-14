@@ -4,12 +4,15 @@ import axios from 'axios';
 import { withRouter } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'js-cookie';
 
 
 const NavigationComponent = (props) => {
   const [scrolled, setScrolled] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const isAuthenticated = Cookies.get('authenticated') === 'true';
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,22 +29,32 @@ const NavigationComponent = (props) => {
     };
   }, [scrolled]);
 
+
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
         const response = await axios.get('/check-auth');
+        console.log('Response:', response);
+  
         setAuthenticated(response.data.authenticated);
-
+        console.log('Authenticated:', response.data.authenticated);
+  
+        // Guarda la cookie en el cliente, independientemente de si el usuario está autenticado
+        Cookies.set('authenticated', response.data.authenticated);
+  
         if (response.data.authenticated) {
           setUser(response.data.user);
+          console.log('User:', response.data.user);
         }
       } catch (error) {
         console.error('Error al comprobar la autenticación:', error);
       }
     };
-
+  
     checkAuthentication();
   }, []);
+  
+
 
   const handleLogout = async () => {
     try {

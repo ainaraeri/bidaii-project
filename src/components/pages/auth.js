@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from "../auth/login";
 import Register from "../auth/register"; 
+import axios from 'axios';
 
 export default class Auth extends Component {
   constructor(props) {

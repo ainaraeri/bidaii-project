@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
-import NavigationContainer from './navigation/navigation-container';
+import NavigationComponent from './navigation/navigation-container';
 import Auth from './pages/auth';
 import Home from './pages/home';
 import UserDashboard from './auth/user-dashboard';
@@ -61,7 +61,7 @@ export default class App extends Component {
     return (
       <div>
         <Router>
-          <NavigationContainer />
+        <NavigationComponent updateAuthenticated={(value) => this.setState({ isAuthenticated: value })} />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route
