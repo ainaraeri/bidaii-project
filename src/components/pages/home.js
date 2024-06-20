@@ -127,10 +127,6 @@ export default function() {
           ></div>
         </div>
       </div>
-
-      <NavLink className="btn" exact to="/questions">
-        VÁMONOS
-      </NavLink>
     </div>
   );
 }
