@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+/*/import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from "../auth/login";
 import Register from "../auth/register"; 
@@ -56,4 +56,4 @@ export default class Auth extends Component {
       </div>
     );
   }
-}
+}/*/
