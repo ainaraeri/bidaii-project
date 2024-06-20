@@ -2,6 +2,8 @@ import React from 'react';
 //import marsellaImg from "../../../static/assets/images/marsella.jpg";
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import Questions from './questions';
+
 
 
 export default function() {
@@ -126,7 +128,7 @@ export default function() {
         </div>
       </div>
 
-      <NavLink className="btn" exact to="/auth">
+      <NavLink className="btn" exact to="/questions">
         VÁMONOS
       </NavLink>
     </div>
